@@ -1,0 +1,66 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+# Rust
+# Compiled files and executables
+target/
+debug/
+release/
+
+# Cargo package manager
+Cargo.lock
+*.rs.bk
+
+# Rust-Analyzer
+rust-project.json
+
+# WASM targets
+*.wasm
+
+# CLion / IntelliJ
+.idea/
+*.iml
+
+# General
+*.log
+*.tmp
+*.swp
+*~
+.env
+.env.local
