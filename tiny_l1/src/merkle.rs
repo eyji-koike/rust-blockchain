@@ -15,12 +15,16 @@ impl MerkleTree {
                 hasher.finalize().into()
             })
             .collect();
+
+        if leaves.is_empty() {
+            leaves.push([0u8; 32]);
+        }
         
-        while leaves.len() & (leaves.len() - 1) != 0 {
+        while leaves.len() & (leaves.len().wrapping_sub(1)) != 0 {
             leaves.push([0u8; 32]); // Pad with zero hash if not a power of two
         }
 
-        let mut nodes = vec![leaves];
+        let mut nodes = vec![leaves.clone()];
         while nodes.last().unwrap().len() > 1 {
             let level: Vec<Hash> = nodes.last().unwrap()
                 .chunks(2)
