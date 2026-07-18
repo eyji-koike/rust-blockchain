@@ -82,23 +82,43 @@ impl ConsensusEngine {
         match self.state {
             ConsensusState::Idle => None,
             ConsensusState::Proposing => {
+                log::info!("height={} round={} -> PreVote", self.height, self.round);
                 self.state = ConsensusState::PreVote;
                 None
             }
             ConsensusState::PreVote => {
-                if self.pre_votes.len() >= self.threshold {
+                let vote_count = self.pre_votes.len();
+                log::info!(
+                    "height={} round={} PreVote: {}/{} votes",
+                    self.height,
+                    self.round,
+                    vote_count,
+                    self.threshold
+                );
+                if vote_count >= self.threshold {
+                    log::info!("height={} round={} -> PreCommit", self.height, self.round);
                     self.state = ConsensusState::PreCommit;
                 }
                 None
             }
             ConsensusState::PreCommit => {
-                if self.pre_commits.len() >= self.threshold {
+                let commit_count = self.pre_commits.len();
+                log::info!(
+                    "height={} round={} PreCommit: {}/{} votes",
+                    self.height,
+                    self.round,
+                    commit_count,
+                    self.threshold
+                );
+                if commit_count >= self.threshold {
+                    log::info!("height={} round={} -> Commit", self.height, self.round);
                     self.state = ConsensusState::Commit;
                     return self.proposed_block.clone();
                 }
                 None
             }
             ConsensusState::Commit => {
+                log::info!("height={} round={} block committed; resetting", self.height, self.round);
                 self.height += 1;
                 self.round = 0;
                 self.pre_votes.clear();
